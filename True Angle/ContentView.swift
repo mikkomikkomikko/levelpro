@@ -65,8 +65,9 @@ struct ContentView: View {
                 .animation(.easeInOut, value: backgroundColor)
 
             VStack {
-                Text("\(formattedRoll(motionManager.roll))°")
+                Text("\(formattedRoll(abs(motionManager.roll)))°") // Use abs to remove negative sign
                     .font(.system(size: 180, weight: .semibold, design: .monospaced))
+                    .tracking(-5)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.white)
             }
