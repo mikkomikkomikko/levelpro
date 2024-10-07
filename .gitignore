@@ -1,0 +1,54 @@
+# Xcode
+*.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.xcodeproj
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+*.xcuserdatad
+
+# Build
+build/
+DerivedData/
+*.hmap
+
+# User-specific
+*.xcuserstate
+*.xcscheme
+*.xcuserdatad
+
+# Swift Package Manager
+.build/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# SwiftPM
+*.swiftpm/xcode/xcuserdata
+
+# Logs
+*.log
+
+# Miscellaneous
+*.swp
+*.swo
+
+# Documentation
+*.doccarchive
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+# Simulator
+*.app
+*.ipa
+*.dSYM
+
+# User-specific files
+*.DS_Store
