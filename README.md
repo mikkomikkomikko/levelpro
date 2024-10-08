@@ -1,16 +1,14 @@
 # Level Pro
 
-**Level Pro** is an iOS app designed to measure angles using the device’s gyroscope. It allows you to calibrate and reset the reference angle by tapping the screen and provides accurate angle measurements up to 0.1° precision. The background color changes based on the angle, and it provides haptic feedback when specific angles (0°, 45°, 90°) are reached.
+**Level Pro** is an iOS app designed to provide highly accurate angle measurements using your device’s gyroscope, making it a handy tool for tasks like setting up a table saw blade or other precision work. As a more precise alternative to the built-in iOS Measure app, Level Pro allows calibration and reset of the reference angle with ease, and offers measurement accuracy up to 0.1°. The app also provides visual feedback through background color changes and haptic feedback when key angles (0°, 45°, 90°) are reached.
 
 ## Features
 
-- **Accurate Angle Measurement**: Measures the angle relative to the device’s initial position with precision up to 0.1°.
+- **Accurate Angle Measurement**: Measures angles relative to the device’s initial position with precision up to 0.1°.
 - **Calibration**: Tap once anywhere on the screen to set a new reference angle.
-- **Reset**: Double-tap the screen to reset the angle measurement to default (0°).
+- **Reset**: Double-tap the screen to reset the angle measurement to the default (0°).
 - **Color Change**: The background changes to green at 0°, and blue at 45° and 90°.
 - **Haptic Feedback**: Provides a short buzz when 0°, 45°, or 90° are reached.
-- **Screen Stay On**: The screen will not go to sleep while using the app.
-- **Angle Display**: The angle is displayed in large, easy-to-read text with a dot (.) as the decimal separator.
 
 ## Installation
 
@@ -36,7 +34,7 @@
     - Tap anywhere on the screen to set the current angle as the new 0° reference.
 
 3. **Reset**:
-    - Double-tap anywhere on the screen to reset the reference angle to the default (0°).
+    - Double-tap anywhere on the screen to reset the reference angle to the default.
 
 4. **Observe Feedback**:
     - The background will turn green when the angle is 0°.
