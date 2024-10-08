@@ -1,14 +1,22 @@
 import SwiftUI
 import CoreMotion
+import UIKit
 
 class MotionManager: ObservableObject {
     private var motion = CMMotionManager()
     private var referenceRoll: Double = 0.0
     @Published var roll: Double = 0.0
     private var timer: Timer?
+    private var hapticGenerator = UIImpactFeedbackGenerator(style: .medium) // Haptic generator
+    
+    private var hapticTolerance: Double = 0.1 // 0.1° tolerance
+    private var hapticDebounceInterval: TimeInterval = 0.5 // 500ms delay
+    private var hapticTimer: Timer? // Timer for haptic feedback
+    private var hapticTriggered = false // Flag to check if feedback was already triggered
 
     init() {
         startDeviceMotionUpdates()
+        hapticGenerator.prepare() // Prepares the haptic generator for immediate use
     }
 
     private func startDeviceMotionUpdates() {
@@ -52,6 +60,30 @@ class MotionManager: ObservableObject {
     func resetToDefaults() {
         referenceRoll = 0.0
     }
+
+    // Function to trigger haptic feedback once
+    private func triggerHapticFeedback() {
+        hapticGenerator.impactOccurred()
+        hapticGenerator.prepare() // Prepare for the next impact
+    }
+
+    // Check if roll is within tolerance range and handle haptic feedback logic
+    func checkAndTriggerHaptic(for targetRoll: Double) {
+        if abs(roll - targetRoll) < hapticTolerance {
+            // If inside tolerance and feedback not yet triggered, start debounce timer
+            if !hapticTriggered {
+                hapticTriggered = true
+                hapticTimer?.invalidate() // Cancel any existing timer
+                hapticTimer = Timer.scheduledTimer(withTimeInterval: hapticDebounceInterval, repeats: false) { [weak self] _ in
+                    self?.triggerHapticFeedback()
+                }
+            }
+        } else {
+            // If outside tolerance, reset the triggered flag and invalidate timer
+            hapticTriggered = false
+            hapticTimer?.invalidate()
+        }
+    }
 }
 
 struct ContentView: View {
@@ -81,6 +113,12 @@ struct ContentView: View {
                     motionManager.setReferenceFrame()
                 }
         }
+        .onAppear {
+            UIApplication.shared.isIdleTimerDisabled = true // Disable idle timer when the view appears
+        }
+        .onDisappear {
+            UIApplication.shared.isIdleTimerDisabled = false // Re-enable idle timer when the view disappears
+        }
         .onReceive(motionManager.$roll) { newRoll in
             updateBackgroundColor(for: newRoll)
         }
@@ -99,10 +137,13 @@ struct ContentView: View {
         withAnimation {
             if abs(roll) < 0.1 {
                 backgroundColor = Color.green
+                motionManager.checkAndTriggerHaptic(for: 0.0) // Haptic at 0°
             } else if abs(roll - 45) < 0.1 || abs(roll - 90) < 0.1 {
                 backgroundColor = Color.blue
+                motionManager.checkAndTriggerHaptic(for: roll > 45 ? 90.0 : 45.0) // Haptic at 45° or 90°
             } else if abs(roll + 45) < 0.1 || abs(roll + 90) < 0.1 {
                 backgroundColor = Color.blue
+                motionManager.checkAndTriggerHaptic(for: roll < -45 ? -90.0 : -45.0) // Haptic at -45° or -90°
             } else {
                 backgroundColor = .black
             }
