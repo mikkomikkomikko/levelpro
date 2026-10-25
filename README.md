@@ -1,6 +1,5 @@
 # Level Pro
-
-![Level Pro Demo](LevelPro.gif)
+![Level Pro](level-pro.jpg)
 
 **Level Pro** is an iOS app designed to provide highly accurate angle measurements using your device’s gyroscope, making it a handy tool for tasks like setting up a table saw blade or other precision work. As a more precise alternative to the built-in iOS Measure app, Level Pro allows calibration and reset of the reference angle with ease, and offers measurement accuracy up to 0.1°. The app also provides visual feedback through background color changes and haptic feedback when key angles (0°, 45°, 90°) are reached.
 
@@ -11,6 +10,8 @@
 - **Reset**: Double-tap the screen to reset the angle measurement to the default (0°).
 - **Color Change**: The background changes to green at 0°, and blue at 45° and 90°.
 - **Haptic Feedback**: Provides a short buzz when 0°, 45°, or 90° are reached.
+
+![Level Pro Demo](LevelPro.gif)
 
 ## Installation
 
